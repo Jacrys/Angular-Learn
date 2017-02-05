@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="AngularLearn">
+  <head>
+    <script data-require="angular.js@" src="angularjs.1.6.1/content/scripts/angular.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+  </head>
+  <body ng-controller="MainController">
+    <h1>{{message}}</h1>
+
+    <div>{{error}}</div>
+    
+    <form name="searchUser" ng-submit="search(username)">
+      <input type="search" required name="username" value="" placeholder="Username to find" ng-model="username">
+      <input type="submit" name="submitBtn" value="Search">
+    </form>
+
+
+    <div ng-show ="user">
+      <h2>{{user.name}}</h2>
+      <img ng-src="{{user.avatar_url}}" title="{{user.name}}" width="80px" height="80px">
+    </div>
+
+    <table ng-show="user">
+      <caption>{{user.login}}'s Repos</caption>
+      <thead>
+        <tr>
+          <th ng-click="nameSort()">Name</th>
+          <th ng-click="starSort()">Stars</th>
+          <th ng-click="languageSort()">Language</th>    
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="repo in repos | orderBy:repoSortOrder">
+          <td>{{repo.name}}</td>
+          <td>{{repo.stargazers_count | number}}</td>
+          <td ng-bind-html="repo.language">{{repo.language}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </body>
+
+</html>
